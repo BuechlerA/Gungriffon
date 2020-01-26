@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ProtoFloor
-  m_Shader: {fileID: 4800000, guid: 9f50182eb1a37844c8b2f64f0784348f, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: AFFINE_TEXTURE
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

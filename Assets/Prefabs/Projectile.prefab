@@ -49,6 +49,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   impactEffects: []
+  damage: 1
 --- !u!96 &4052825342381099456
 TrailRenderer:
   serializedVersion: 2

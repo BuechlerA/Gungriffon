@@ -19,7 +19,7 @@ public class Gun : MonoBehaviour
     private float minRecoil = 0f;
     private float maxRecoil = 10f;
 
-    public float minAccuracy = 1f;
+    //public float minAccuracy = 1f;
     public float maxAccuracy = 3f;
     public float msBetweenShot = 100f;
     public float muzzleVelocity = 35f;
@@ -44,12 +44,6 @@ public class Gun : MonoBehaviour
 
     }
 
-    public virtual void ShootGun()
-    {
-        ShootModeRifle();
-    }
-
-
     public virtual void ReloadGun()
     {
         if (currentClipSize < defaultMagSize - 1)
@@ -71,7 +65,7 @@ public class Gun : MonoBehaviour
         gunSound.Play();
     }
 
-    void ShootModeRifle()
+    public void Shoot()
     {
         if (Time.time > nextShotTime && currentClipSize >= 1 && !isReloading)
         {
@@ -79,7 +73,7 @@ public class Gun : MonoBehaviour
 
             //accuracy calculation needs to be redone to work with stats
 
-            Quaternion accuracy = Quaternion.Euler(Random.Range(-1.0f, 1.0f), Random.Range(-3.0f, 3.0f), 0);
+            Quaternion accuracy = Quaternion.Euler(Random.Range(-maxAccuracy, maxAccuracy), Random.Range(-maxAccuracy, maxAccuracy), 0);
 
             Projectile newProjectile = Instantiate(projectile, muzzle.position, muzzle.rotation * accuracy) as Projectile;
             newProjectile.SetSpeed(muzzleVelocity);

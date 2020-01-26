@@ -41,8 +41,6 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
         }
-
-        Debug.Log(characterController.velocity.magnitude);
     }
 
     public void Movement(Vector3 movePlayer, bool dash)
@@ -88,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     public void Shoot()
     {
-        gun.ShootGun();
+        gun.Shoot();
     }
 
 }

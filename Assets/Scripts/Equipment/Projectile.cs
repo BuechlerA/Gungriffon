@@ -8,8 +8,8 @@ public class Projectile : MonoBehaviour
     public GameObject[] impactEffects = new GameObject[2];
     //public BulletholeBehaviour bulletHoleObject;
 
+    public float damage = 1f;
     float speed;
-    float damage = 10f;
 
     public void SetSpeed(float newSpeed)
     {

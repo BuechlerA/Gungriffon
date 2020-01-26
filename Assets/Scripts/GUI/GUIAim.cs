@@ -41,10 +41,13 @@ public class GUIAim : MonoBehaviour
             Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
             borderBehaviour.SetTransform(screenPos);
             GetComponentInChildren<Gun>().transform.LookAt(target.position);
+
+            borderBehaviour.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = target.name;
         }
         if(target == null)
         {
             borderBehaviour.GetComponent<UnityEngine.UI.Image>().enabled = false;
+            borderBehaviour.GetComponentInChildren<TMPro.TextMeshProUGUI>().enabled = false;
         }
     }
 

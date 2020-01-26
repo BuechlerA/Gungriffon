@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4499203, g: 0.49997687, b: 0.5755568, a: 1}
+  m_IndirectSpecularColor: {r: 0.4499197, g: 0.49997622, b: 0.57555574, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172,8 +172,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4088a1177b4d9794c94290dc55d17d0b, type: 3}
   soundEmpty: {fileID: 8300000, guid: 67fbf44843c00e148bf048159cf00656, type: 3}
   soundReload: {fileID: 0}
-  minAccuracy: 10
-  maxAccuracy: 20
+  maxAccuracy: 1.2
   msBetweenShot: 110
   muzzleVelocity: 100
   reloadTime: 1.5
@@ -1201,7 +1200,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 61.32
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -3453,7 +3452,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -4725,6 +4724,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyBorder
+      objectReference: {fileID: 0}
+    - target: {fileID: 3159508612945141598, guid: b763ac4eba696334a96ed006ac7a7ca7,
+        type: 3}
+      propertyPath: m_margin.z
+      value: 101.98758
+      objectReference: {fileID: 0}
+    - target: {fileID: 6452220762985634268, guid: b763ac4eba696334a96ed006ac7a7ca7,
+        type: 3}
+      propertyPath: m_Name
+      value: TargetText
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b763ac4eba696334a96ed006ac7a7ca7, type: 3}

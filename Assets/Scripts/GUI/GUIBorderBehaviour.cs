@@ -25,10 +25,12 @@ public class GUIBorderBehaviour : MonoBehaviour
         if (pos.z <= 0f)
         {
             borderSprite.enabled = false;
+            //targetText.enabled = false;
         }
         else
         {
             borderSprite.enabled = true;
+            //targetText.enabled = true;
         }
     }
 }

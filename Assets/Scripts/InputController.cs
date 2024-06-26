@@ -17,7 +17,7 @@ public class InputController : MonoBehaviour
     void Start()
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        
+
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -43,10 +43,7 @@ public class InputController : MonoBehaviour
             moveInput = new Vector3(0, 0, 0);
             viewInput = new Vector3(0, 0, 0);
         }
-    }
 
-    private void FixedUpdate()
-    {
         playerController.GetInput(moveInput, viewInput, fireInput, boostInput);
 
         if (Input.GetKey(KeyCode.Escape))

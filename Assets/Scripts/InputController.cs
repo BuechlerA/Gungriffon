@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
     PlayerController playerController;
+    PlayerInputActions inputActions;
 
     Vector3 moveInput;
     Vector3 viewInput;
@@ -14,6 +14,35 @@ public class InputController : MonoBehaviour
 
     public bool isInputEnabled = true;
 
+    void Awake()
+    {
+        inputActions = new PlayerInputActions();
+
+        inputActions.Default.Move.performed += ctx => OnMove(ctx);
+        inputActions.Default.Look.performed += ctx => OnLook(ctx);
+        inputActions.Default.Fire.performed += ctx => OnFire(ctx);
+        inputActions.Default.Boost.performed += ctx => OnBoost(ctx);
+
+        inputActions.Default.Fire.canceled += ctx => OnFireCancel(ctx);
+        inputActions.Default.Boost.canceled += ctx => OnBoostCancel(ctx);
+    }
+
+    void OnEnable()
+    {
+        inputActions.Default.Move.Enable();
+        inputActions.Default.Look.Enable();
+        inputActions.Default.Fire.Enable();
+        inputActions.Default.Boost.Enable();
+    }
+
+    void OnDisable()
+    {
+        inputActions.Default.Disable();
+        inputActions.Default.Look.Disable();
+        inputActions.Default.Fire.Disable();
+        inputActions.Default.Boost.Disable();
+    }
+
     void Start()
     {
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -21,35 +50,64 @@ public class InputController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (isInputEnabled)
+        if (!isInputEnabled)
         {
-            float horMove = Input.GetAxisRaw("MoveHorizontal");
-            float verMove = Input.GetAxisRaw("MoveVertical");
-
-            float horView = Input.GetAxisRaw("ViewHorizontal");
-            float verView = Input.GetAxisRaw("ViewVertical");
-
-            moveInput = new Vector3(horMove, verMove);
-            viewInput = new Vector3(horView, verView);
-
-            fireInput = Input.GetButton("Fire");
-            boostInput = Input.GetButton("Boost");
-        }
-        else
-        {
-            moveInput = new Vector3(0, 0, 0);
-            viewInput = new Vector3(0, 0, 0);
+            moveInput = Vector3.zero;
+            viewInput = Vector3.zero;
         }
 
         playerController.GetInput(moveInput, viewInput, fireInput, boostInput);
 
-        if (Input.GetKey(KeyCode.Escape))
+        if (Keyboard.current.escapeKey.isPressed)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+    }
+
+    void OnMove(InputAction.CallbackContext context)
+    {
+        if (isInputEnabled)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            moveInput = new Vector3(input.x, 0, input.y); // Assuming a 3D game with X and Z as horizontal axes
+        }
+    }
+
+    void OnLook(InputAction.CallbackContext context)
+    {
+        if (isInputEnabled)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            viewInput = new Vector3(input.x, input.y, 0);
+        }
+    }
+
+    void OnFire(InputAction.CallbackContext context)
+    {
+        if (isInputEnabled)
+        {
+            fireInput = true;
+        }
+    }
+
+    void OnFireCancel(InputAction.CallbackContext context)
+    {
+        fireInput = false;
+    }
+
+    void OnBoost(InputAction.CallbackContext context)
+    {
+        if (isInputEnabled)
+        {
+            boostInput = true;
+        }
+    }
+
+    void OnBoostCancel(InputAction.CallbackContext context)
+    {
+        boostInput = false;
     }
 }

@@ -28,13 +28,40 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""ace91d3c-9a2c-4fc8-9833-73afc76ad2b3"",
             ""actions"": [
                 {
-                    ""name"": ""Walk"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""460f9280-9935-4705-a9e1-23e10de842dd"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""dc6cfe0d-6645-48cf-a6d3-8cfa96c16655"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""d7a9ddd6-574f-4375-8fd3-38bb67ee39d7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Boost"",
+                    ""type"": ""Button"",
+                    ""id"": ""a647a67f-8afb-482a-9466-2f5094797846"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -45,7 +72,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Walk"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -56,7 +83,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Walk"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -67,7 +94,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Walk"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -78,7 +105,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Walk"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -89,9 +116,42 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Walk"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a9832822-e5f1-48c9-bc83-05783aba803c"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa7c3474-6531-4447-9215-9cc10dcafef4"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6c7813f-bd63-4fe1-9060-edf17adfeec0"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Boost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -100,7 +160,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // Default
         m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
-        m_Default_Walk = m_Default.FindAction("Walk", throwIfNotFound: true);
+        m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
+        m_Default_Look = m_Default.FindAction("Look", throwIfNotFound: true);
+        m_Default_Fire = m_Default.FindAction("Fire", throwIfNotFound: true);
+        m_Default_Boost = m_Default.FindAction("Boost", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -162,12 +225,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // Default
     private readonly InputActionMap m_Default;
     private List<IDefaultActions> m_DefaultActionsCallbackInterfaces = new List<IDefaultActions>();
-    private readonly InputAction m_Default_Walk;
+    private readonly InputAction m_Default_Move;
+    private readonly InputAction m_Default_Look;
+    private readonly InputAction m_Default_Fire;
+    private readonly InputAction m_Default_Boost;
     public struct DefaultActions
     {
         private @PlayerInputActions m_Wrapper;
         public DefaultActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Walk => m_Wrapper.m_Default_Walk;
+        public InputAction @Move => m_Wrapper.m_Default_Move;
+        public InputAction @Look => m_Wrapper.m_Default_Look;
+        public InputAction @Fire => m_Wrapper.m_Default_Fire;
+        public InputAction @Boost => m_Wrapper.m_Default_Boost;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -177,16 +246,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_DefaultActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_DefaultActionsCallbackInterfaces.Add(instance);
-            @Walk.started += instance.OnWalk;
-            @Walk.performed += instance.OnWalk;
-            @Walk.canceled += instance.OnWalk;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
+            @Boost.started += instance.OnBoost;
+            @Boost.performed += instance.OnBoost;
+            @Boost.canceled += instance.OnBoost;
         }
 
         private void UnregisterCallbacks(IDefaultActions instance)
         {
-            @Walk.started -= instance.OnWalk;
-            @Walk.performed -= instance.OnWalk;
-            @Walk.canceled -= instance.OnWalk;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
+            @Boost.started -= instance.OnBoost;
+            @Boost.performed -= instance.OnBoost;
+            @Boost.canceled -= instance.OnBoost;
         }
 
         public void RemoveCallbacks(IDefaultActions instance)
@@ -206,6 +293,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public DefaultActions @Default => new DefaultActions(this);
     public interface IDefaultActions
     {
-        void OnWalk(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
+        void OnBoost(InputAction.CallbackContext context);
     }
 }

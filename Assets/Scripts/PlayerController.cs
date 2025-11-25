@@ -14,6 +14,11 @@ public class PlayerController : MonoBehaviour
     public float dashStopTime = 0.3f;
     private float currentBoostTime;
 
+    // Camera tilt during boost/dash
+    public float tiltAmount = 8f;
+    public float tiltSmoothSpeed = 5f;
+    private float currentTilt = 0f;
+
     public MovementModes movementState;
 
     private CharacterController characterController;
@@ -70,18 +75,30 @@ public class PlayerController : MonoBehaviour
 
     public void View(Vector3 viewPlayer, Vector3 movePlayer)
     {
+        float targetTilt = 0f;
+
         if (movementState == MovementModes.walk)
         {
             transform.localEulerAngles += new Vector3(0, viewPlayer.x, 0) * turnSpeed;
             viewCam.transform.localEulerAngles += new Vector3(viewPlayer.y, 0, 0) * turnSpeed;
             guiCam.GetComponent<GUILerp>().Lerp(viewPlayer);
+            // Target tilt is 0 in walk mode
         }
         if (movementState == MovementModes.boost)
         {
             transform.localEulerAngles += new Vector3(0, movePlayer.x, 0) * turnSpeed;
             viewCam.transform.localEulerAngles += new Vector3(movePlayer.y, 0, 0) * turnSpeed;
             guiCam.GetComponent<GUILerp>().Lerp(movePlayer);
+            // Tilt camera based on horizontal movement (negative for CCW tilt on left input)
+            targetTilt = -movePlayer.x * tiltAmount;
         }
+
+        // Smoothly interpolate current tilt toward target
+        currentTilt = Mathf.Lerp(currentTilt, targetTilt, Time.deltaTime * tiltSmoothSpeed);
+
+        // Apply tilt as Z rotation, preserving the existing X (pitch) rotation
+        Vector3 currentAngles = viewCam.transform.localEulerAngles;
+        viewCam.transform.localEulerAngles = new Vector3(currentAngles.x, currentAngles.y, currentTilt);
     }
 
     public void Shoot()
